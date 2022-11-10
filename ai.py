@@ -101,6 +101,7 @@ if __name__ == "__main__":
                     except Exception as e:
                         print(e)
                         speak("Sorry Boss. I am not able to send this email")
+                        
 
                 elif 'play' in query:
                     song = query.replace('play', '')
@@ -113,14 +114,35 @@ if __name__ == "__main__":
                     url = "https://www.google.com.tr/search?q={}".format(
                         content)
                     webbrowser.open(url)
-
+                    
+                elif 'whatsapp message' in query:
+                    try:
+                        speak('boss!, whom do you want to send message?')
+                        name = takeCommand()
+                        # info: finding the number
+                        numbers = {'saurabh': 9669233736,'rahul': 1231231231}
+                        for x, value in numbers.items():
+                            if x==name:
+                                number = value
+                                break
+                            else:
+                                pass
+                        hour = datetime.now().hour
+                        minute = datetime.now().minute
+                        second = datetime.now().second 
+                        pywhatkit.sendwhatmsg(f"+91{number}", "Hello ", (hour),(minute+1 if second < 50 else minute+2), (10) , True, 5)
+                        speak("Successfully Sent!")
+                        
+                    except:
+                        # handling exception
+                        print("An Unexpected Error!")
 
                 # info : band karne ke liye
                 elif 'band karo' in query:
-                    print('bob go to sleep')
+                    print('bob is going to sleep')
                     break
-                elif 'bob go to speep' in query:
-                    print('bob go to sleep')
+                elif 'bob go to sleep' in query:
+                    print('bob is going to sleep')
                     break
 
         else:
