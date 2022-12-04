@@ -44,6 +44,11 @@ def wishMe():
 
     else:
         speak('Good Night!')
+# info : geting users details 
+def getUserDetails():
+
+    user = {'name': 'saurabh', 'gender': 'male'}
+    return user;
 
 # info: It takes microphone input from the user and returns string output
 def takeCommand():
@@ -68,8 +73,6 @@ def takeCommand():
 
     return query
 
-def sendEmail(to, content):
-    pass
 
 def sendWhatsAppMessage (number, message):
     hour = datetime.now().hour
@@ -92,7 +95,7 @@ def videoDownloader():
         video.download('S:\\Private\\voiceAssistant\\Youtube Download Video\\')
 
     Download(Link)
-    speak('boss. Download done.')
+    speak(' Download done.')
     os.startfile('S:\\Private\\voiceAssistant\\Youtube Download Video\\')
 
 def saveURL():
@@ -104,7 +107,7 @@ def saveURL():
     value = pyperclip.paste()
     Url = str(value)
     def saving(url):
-        speak('boss ,what name should I save for this Url?')
+        speak('what name should I save for this Url?')
         content = takeCommand()
 
         with open("allUrls.txt", "a") as file:
@@ -121,7 +124,7 @@ def saveSelectedText():
     Text = str(value)
     print(Text)
     def saving(text):
-        speak('boss ,what name should I save for this text?')
+        speak('what name should I save for this text?')
         content = takeCommand()
 
         with open("allSelectedTexts.txt", "a") as file:
@@ -130,7 +133,13 @@ def saveSelectedText():
     saving(Text)
 
 def FuntionIsRuning():
-    speak('yes boss ...')
+    user = getUserDetails()
+    print(user['gender'])
+
+    if user['gender'] == 'male':   
+        speak('yes sir ..')
+    else:
+        speak('yes maam ..')
 
 def wolfRam(query):
     apiKey = "WKVERQ-RRHV98EE23"
@@ -140,7 +149,7 @@ def wolfRam(query):
         answer = next(requested.results).text
         return answer
     except:
-        speak('Sorry boss, i found some error')    
+        speak('Sorry , i found some error')    
 
 def Calculator(query):
     query.replace('multiply','*')
@@ -155,7 +164,7 @@ def Calculator(query):
         result = wolfRam(query)
         speak(f'Answer is, {result}')
     except:
-        speak('Sorry boss, i found some error')
+        speak('Sorry , i found some error')
 
 
 if __name__ == "__main__":
@@ -163,17 +172,30 @@ if __name__ == "__main__":
         query = takeCommand()
 
         if 'bob' in query:
+            user = getUserDetails()
+            print(user['gender'])
+
             if ('bob good morning ' or 'bob good afternoon' or 'bob good evening' ) in query:
                 wishMe()
 
             elif 'wake up'in query:
-                speak('ok boss ..')
+                if user['gender'] == 'male':
+                    speak('ok sir ..')
+                else:
+                    speak('ok maam ..')
 
             elif 'hi 'in query:
-                speak('hi boss ..')
+                if user['gender'] == 'male':
+                    speak('ok sir ..')
+                else:
+                    speak('ok maam ..')
 
             elif 'bob' in query:
-                speak('yes boss ..')
+                if user['gender'] == 'male':
+                    speak('ok sir ..')
+                else:
+                    speak('ok maam ..')
+
                 speak('How may i help you')
 
 
@@ -219,7 +241,7 @@ if __name__ == "__main__":
                     elif 'time batao' in query:
                         FuntionIsRuning()
                         strTime = datetime.now().strftime("%H:%M:%S")
-                        speak(f"boss, the time is {strTime}")
+                        speak(f" the time is {strTime}")
 
                     elif 'save selected text' in query:
                         FuntionIsRuning()
@@ -272,23 +294,8 @@ if __name__ == "__main__":
                         codePath = "S:\\Private\\"
                         os.startfile(codePath)
 
-                    elif 'email to harry' in query:
-                        FuntionIsRuning()
-
-                        try:
-                            speak('what should i say?')
-                            content = takeCommand()
-                            to = 'har@gmail.com'
-                            sendEmail(to, content)
-                            speak('Sended')
-
-                        except Exception as e:
-                            print(e)
-                            speak("Sorry Boss. I am not able to send this email")
-                            
-
                     elif 'google search' in query:
-                        speak('boss!, what do you want to search?')
+                        speak(' what do you want to search?')
                         content = takeCommand()
 
                         url = "https://www.google.com.tr/search?q={}".format(
@@ -332,7 +339,7 @@ if __name__ == "__main__":
                     elif 'whatsapp message' in query:
 
                         try:
-                            speak('boss!, whom do you want to send message?')
+                            speak(' whom do you want to send message?')
                             name = takeCommand()
 
                             # info: finding the number
@@ -347,7 +354,7 @@ if __name__ == "__main__":
                                     number = 'not found'
 
                             if number == 'not found':
-                                speak("Sorry Boss. I am not able to send this message")
+                                speak("Sorry . I am not able to send this message")
                                 speak(f'because this persion\'s data is not prasent ')
                                 pass
 
@@ -362,24 +369,24 @@ if __name__ == "__main__":
                         except Exception as e:
 
                             print(e)
-                            speak("Sorry Boss. I am not able to send this email")
+                            speak("Sorry . I am not able to send this message")
 
                     # info : band karne ke liye
                     elif 'band karo' in query:
-                        speak('ok boss ..')
+                        speak('ok  ..')
 
                         print('bob is going to sleep')
                         break
 
                     elif  'go to sleep' in query:
-                        speak('ok boss ..')
+                        speak('ok  ..')
 
                         print('bob is going to sleep')
                         break
 
 
         elif 'stop the code' in query:
-            speak('ok boss ..')
+            speak('ok ..')
             break
 
         else:
